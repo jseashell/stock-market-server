@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="GameClockTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2021-10-10T14:17:16" hostname="IND-JSCHELLI-M" time="0.021">
+  <properties/>
+  <testcase name="setMinutes_throwsForNegative()" classname="GameClockTest" time="0.015"/>
+  <testcase name="tick()" classname="GameClockTest" time="0.001"/>
+  <testcase name="setDays_throwsForNegative()" classname="GameClockTest" time="0.001"/>
+  <testcase name="setMinutes_throwsForGreaterThan1440()" classname="GameClockTest" time="0.001"/>
+  <testcase name="tick_rotatesDays()" classname="GameClockTest" time="0.001"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
