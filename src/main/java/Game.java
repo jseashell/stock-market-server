@@ -11,7 +11,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class Game {
-    private static final int DAYS = 1;
+    private static final int DAYS = 10;
     private static final Volatility VOLATILITY = Volatility.MEDIUM;
     private static final int TICK_SPEED = 0;
     private static final boolean PRINT_TO_CONSOLE = false;
@@ -73,15 +73,15 @@ public class Game {
             chart.getLegend().setBackgroundPaint(background);
             chart.getPlot().setBackgroundPaint(background);
             chart.getXYPlot().setDomainGridlinesVisible(false);
+            chart.getXYPlot().getRangeAxis().setMinorTickMarksVisible(true);
             chart.getXYPlot().getRangeAxis().setAutoRange(true);
-            chart.setTitle(stock.getSymbol());
+            chart.getXYPlot().setRangeGridlinesVisible(true);
             ((NumberAxis) chart.getXYPlot().getRangeAxis()).setAutoRangeIncludesZero(false);
-
             File lineChart = new File("images/history_" + stock.getSymbol() + ".jpeg");
 
             try {
-                int width = 480;
-                int height = 720;
+                int width = 1600;
+                int height = 900;
                 ChartUtils.saveChartAsJPEG(lineChart, chart, width, height);
             } catch (IOException e) {
                 e.printStackTrace();
