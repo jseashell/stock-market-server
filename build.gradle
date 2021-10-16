@@ -11,10 +11,21 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    def jupiter = 'org.junit.jupiter'
+    def jupiterVersion = '5.7.0'
+    testImplementation group: jupiter, name: 'junit-jupiter-api', version: jupiterVersion
+    testRuntimeOnly group: jupiter, name: 'junit-jupiter-engine', version: jupiterVersion
 
     implementation group: 'org.jfree', name: 'jfreechart', version: '1.5.0'
+
+    implementation group: 'javax.websocket', name: 'javax.websocket-api', version: '1.1'
+
+    def jackson = 'com.fasterxml.jackson.core'
+    def jacksonVersion = '2.13.0'
+    implementation group: jackson, name: 'jackson-annotations', version: jacksonVersion
+    implementation group: jackson, name: 'jackson-core', version: jacksonVersion
+    implementation group: jackson, name: 'jackson-databind', version: jacksonVersion
+
 }
 
 test {
