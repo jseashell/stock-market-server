@@ -1,28 +1,38 @@
 # Stock Market
 
-Stock market simulation written in Java.
-
 ![demo](https://media.giphy.com/media/oTK6bbeSJFEJJIdbv8/giphy.gif)
 
-## Usage
-
-Generates completely random stock market data. Settings can be adjusted in `Game.java`. Use the `TICK` constant to create a real-time affect using milliseconds.
-
-## Install
+## Installation
 
 ```shell
-git clone https://github.com/jseashell/stock-market.git
-cd stock-market
-./gradlew build
+npm install
 ```
 
-## Develop
+## Running the app
+
 ```shell
-./gradlew test
-./gradlew run
+# development
+npm run start
+
+# watch mode
+npm run start:dev
+
+# production mode
+npm run start:prod
 ```
 
-Data is output to the `./images` directory
+## Test
+
+```shell
+# unit tests
+npm run test
+
+# e2e tests
+npm run test:e2e
+
+# test coverage
+npm run test:cov
+```
 
 ## License
 
