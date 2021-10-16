@@ -52,9 +52,10 @@ export class AppService {
   }
 
   private calculateDayGainLoss(stock: Stock): string {
-    return (
-      ((stock.price - stock.startPrice) / stock.startPrice) *
-      100
-    ).toFixed(2);
+    let val = ((stock.price - stock.startPrice) / stock.startPrice) * 100;
+    if (val < 0) {
+      val = val * -1;
+    }
+    return val.toFixed(2);
   }
 }
