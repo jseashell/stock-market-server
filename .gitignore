@@ -1,18 +1,35 @@
-/.gradle/
-/.idea/
-/.settings/
-/build/
-/images/
-.DS_STORE
+# compiled output
+/dist
+/node_modules
 
-# Ignore Gradle GUI config
-gradle-app.setting
+# Logs
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
 
-# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
-!gradle-wrapper.jar
+# OS
+.DS_Store
 
-# Cache of project
-.gradletasknamecache
+# Tests
+/coverage
+/.nyc_output
 
-# # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
-# gradle/wrapper/gradle-wrapper.properties
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
