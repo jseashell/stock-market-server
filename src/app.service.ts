@@ -13,19 +13,19 @@ export class AppService {
     private schedulerRegistry: SchedulerRegistry,
   ) {}
 
-  @Timeout('stop-tick', 650)
+  // @Timeout('stop-tick', 650)
   private stopTick(): void {
     clearInterval(this.schedulerRegistry.getInterval('tick'));
     clearInterval(this.schedulerRegistry.getInterval('print'));
   }
 
-  @Interval('tick', 0)
+  @Interval('tick', 250)
   private tick(): void {
     this.gameClockService.tick();
     this.marketService.tick({ isNewDay: this.gameClockService.minutes === 0 });
   }
 
-  @Interval('print', 0)
+  // @Interval('print', 250)
   private debugPrint(): void {
     console.log(
       '=== Day ' +
@@ -40,22 +40,12 @@ export class AppService {
       return {
         symbol: stock.symbol.padEnd(4, ' '),
         price: '$' + stock.price.toFixed(2).padStart(9, ' '),
-        'day-change':
-          (stock.price >= stock.startPrice ? '+' : '-') +
-          this.calculateDayGainLoss(stock).padStart(6, ' ') +
-          '%',
+        'day-change-%':
+          stock.dayChangePercent.toFixed(2).padStart(6, ' ') + '%',
         open: '$' + stock.startPrice.toFixed(2).padStart(9, ' '),
       };
     });
     console.table(table);
     console.log('\n');
-  }
-
-  private calculateDayGainLoss(stock: Stock): string {
-    let val = ((stock.price - stock.startPrice) / stock.startPrice) * 100;
-    if (val < 0) {
-      val = val * -1;
-    }
-    return val.toFixed(2);
   }
 }

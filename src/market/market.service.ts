@@ -1,10 +1,18 @@
 import { Injectable } from '@nestjs/common';
+import { MarketGateway } from './market.gateway';
 import { MarketRepository } from './market.repository';
 import { Stock } from 'src/stock/stock.interface';
 
 @Injectable()
 export class MarketService {
-  constructor(private repo: MarketRepository) {}
+  constructor(private repo: MarketRepository, private gateway: MarketGateway) {}
+
+  /**
+   * @returns all stocks in the market
+   */
+  findAll(): Stock[] {
+    return this.repo.findAllStocks();
+  }
 
   /**
    * Ticks each stock in the market repo
@@ -12,7 +20,7 @@ export class MarketService {
   tick(props: { isNewDay?: boolean }): void {
     this.repo.findAllStocks().forEach((stock) => {
       const rand = Math.random();
-      const increment = (rand > 0.5 ? 1 : -1) + rand;
+      const increment = (rand > 0.5 ? 1 + rand : -1 - rand) + rand;
 
       let startPrice = stock.startPrice;
       if (props.isNewDay) {
@@ -20,12 +28,19 @@ export class MarketService {
       }
 
       const price = stock.price + increment;
+      const dayChangePercent = this.calculateDayChangePercent(stock);
 
-      this.repo.update(stock.symbol, { price: price, startPrice: startPrice });
+      this.repo.update(stock.symbol, {
+        price: price,
+        startPrice: startPrice,
+        dayChangePercent: dayChangePercent,
+      });
     });
+
+    this.gateway.emitMarket(this.repo.findAllStocks());
   }
 
-  findAll(): Stock[] {
-    return this.repo.findAllStocks();
+  private calculateDayChangePercent(stock: Stock): number {
+    return ((stock.price - stock.startPrice) / stock.startPrice) * 100;
   }
 }

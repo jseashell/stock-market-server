@@ -5,13 +5,14 @@ export interface Stock {
   price: number;
   lastPrice: number;
   startPrice: number;
+  dayChangePercent: number;
   volatility: Volatility;
 }
 
 /**
  * Create options for a {@link Stock}
  */
-export type CreateStock = Omit<Stock, 'lastPrice'>;
+export type CreateStock = Omit<Stock, 'lastPrice' | 'dayChangePercent'>;
 
 /**
  * Update options for a {@link Stock}

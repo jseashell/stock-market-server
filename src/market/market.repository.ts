@@ -12,6 +12,7 @@ export class MarketRepository {
       price: 330.05,
       lastPrice: 330.05,
       startPrice: 330.05,
+      dayChangePercent: 0,
       volatility: this.volatility,
     },
     {
@@ -19,6 +20,7 @@ export class MarketRepository {
       price: 142.9,
       lastPrice: 142.9,
       startPrice: 142.9,
+      dayChangePercent: 0,
       volatility: this.volatility,
     },
     {
@@ -26,6 +28,7 @@ export class MarketRepository {
       price: 3288.62,
       lastPrice: 3288.62,
       startPrice: 3288.62,
+      dayChangePercent: 0,
       volatility: this.volatility,
     },
     {
@@ -33,6 +36,7 @@ export class MarketRepository {
       price: 632.66,
       lastPrice: 632.66,
       startPrice: 632.66,
+      dayChangePercent: 0,
       volatility: this.volatility,
     },
     {
@@ -40,6 +44,7 @@ export class MarketRepository {
       price: 2801.12,
       lastPrice: 2801.12,
       startPrice: 2801.12,
+      dayChangePercent: 0,
       volatility: this.volatility,
     },
   ];
@@ -63,6 +68,8 @@ export class MarketRepository {
     updated.lastPrice = updated.price;
     updated.price = options.price || updated.price;
     updated.startPrice = options.startPrice || updated.startPrice;
+    updated.dayChangePercent =
+      options.dayChangePercent || updated.dayChangePercent;
     updated.volatility = options.volatility || updated.volatility;
     return updated;
   }

@@ -1,9 +1,12 @@
+import { GameClockModule } from 'src/game-clock/game-clock.module';
+import { MarketGateway } from './market.gateway';
 import { MarketRepository } from './market.repository';
 import { MarketService } from './market.service';
 import { Module } from '@nestjs/common';
 
 @Module({
-  providers: [MarketService, MarketRepository],
+  providers: [MarketService, MarketRepository, MarketGateway],
+  imports: [GameClockModule],
   exports: [MarketService],
 })
 export class MarketModule {}

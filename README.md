@@ -1,6 +1,6 @@
 # Stock Market
 
-![demo](https://media.giphy.com/media/oTK6bbeSJFEJJIdbv8/giphy.gif)
+Web socket API for a simulated stock market
 
 ## Installation
 
@@ -33,6 +33,8 @@ npm run test:e2e
 # test coverage
 npm run test:cov
 ```
+
+An example web client is provided. Open [example-client.html](./example-client.html) in a browser.
 
 ## License
 

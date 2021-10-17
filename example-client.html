@@ -1,0 +1,141 @@
+<html>
+  <head>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+        height: 100vh;
+      }
+      p.clock {
+        font-size: 1.5em;
+        font-weight: bold;
+      }
+      table,
+      th,
+      td {
+        border: 1px solid black;
+      }
+      th,
+      td {
+        padding: 1vw 3vw;
+        text-align: center;
+      }
+      table {
+        border-collapse: collapse;
+        margin-bottom: 1vw;
+      }
+      div.button-group {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        width: 25vw;
+      }
+      input {
+        width: 10vw;
+      }
+    </style>
+    <script
+      src="https://cdn.socket.io/4.2.0/socket.io.min.js"
+      integrity="sha384-PiBR5S00EtOj2Lto9Uu81cmoyZqR57XcOna1oAuVuIEjzj0wpqDVfD0JA9eXlRsj"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+      const socket = io('http://localhost:3001/market');
+
+      function sayHello() {
+        console.log('Saying hello...');
+        socket.emit('hello', {
+          username: document.getElementById('username').value,
+        });
+      }
+
+      socket.on('connect', () => {
+        console.log('Socket connected');
+      });
+
+      socket.on('hello', (data) => {
+        console.log('received hello');
+        const li = document.createElement('li');
+        li.innerText = data.username + ' says hi!';
+        document.getElementById('users').appendChild(li);
+      });
+
+      socket.on('market-update', (data) => {
+        document.getElementById('day').innerText = data.day;
+        document.getElementById('time').innerText = data.time;
+
+        const market = document.getElementById('market');
+        market.replaceChildren();
+
+        const header = document.createElement('tr');
+
+        const headerSymbol = document.createElement('th');
+        headerSymbol.innerText = 'Symbol';
+        header.appendChild(headerSymbol);
+
+        const headerPrice = document.createElement('th');
+        headerPrice.innerText = 'Price';
+        header.appendChild(headerPrice);
+
+        const headerDayChange = document.createElement('th');
+        headerDayChange.innerText = 'Day Change';
+        header.appendChild(headerDayChange);
+
+        const headerStartPrice = document.createElement('th');
+        headerStartPrice.innerText = 'Open';
+        header.appendChild(headerStartPrice);
+
+        market.appendChild(header);
+
+        data.stocks.forEach((stock) => {
+          const tr = document.createElement('tr');
+
+          const symbol = document.createElement('td');
+          symbol.innerText = stock.symbol;
+          tr.appendChild(symbol);
+
+          const price = document.createElement('td');
+          price.innerText = '$' + stock.price.toFixed(2).padStart(9, ' ');
+          tr.appendChild(price);
+
+          const dayChangePercent = document.createElement('td');
+          dayChangePercent.innerText =
+            (stock.dayChangePercent > 0 ? '+' : '') +
+            stock.dayChangePercent.toFixed(2).padStart(6, ' ') +
+            '%';
+          tr.appendChild(dayChangePercent);
+
+          const startPrice = document.createElement('td');
+          startPrice.innerText =
+            '$' + stock.startPrice.toFixed(2).padStart(9, ' ');
+          tr.appendChild(startPrice);
+
+          market.appendChild(tr);
+        });
+      });
+
+      socket.on('exception', function (data) {
+        console.log('event', data);
+      });
+
+      socket.on('disconnect', function () {
+        console.log('Disconnected');
+      });
+    </script>
+  </head>
+
+  <body>
+    <p class="clock">Day <span id="day"></span> <span id="time"></span></p>
+    <table id="market"></table>
+    <div class="button-group">
+      <input type="text" id="username" placeholder="Username" />
+      <button onclick="sayHello()">Say Hello</button>
+    </div>
+    <ul id="users"></ul>
+  </body>
+</html>
