@@ -1,11 +1,13 @@
 import { Stock, UpdateStock } from 'src/stock/stock.interface';
 
+import { Direction } from 'src/stock/direction.enum';
 import { Injectable } from '@nestjs/common';
-import { Volatility } from 'src/volatility/volatility.enum';
+import { Volatility } from 'src/stock/volatility.enum';
 
 @Injectable()
 export class MarketRepository {
   private volatility: Volatility = Volatility.MEDIUM;
+  private direction: Direction = Direction.UP;
   private stocks: Stock[] = [
     {
       symbol: 'FB',
@@ -14,6 +16,7 @@ export class MarketRepository {
       startPrice: 330.05,
       dayChangePercent: 0,
       volatility: this.volatility,
+      direction: this.direction,
     },
     {
       symbol: 'AAPL',
@@ -22,6 +25,7 @@ export class MarketRepository {
       startPrice: 142.9,
       dayChangePercent: 0,
       volatility: this.volatility,
+      direction: this.direction,
     },
     {
       symbol: 'AMZN',
@@ -30,6 +34,7 @@ export class MarketRepository {
       startPrice: 3288.62,
       dayChangePercent: 0,
       volatility: this.volatility,
+      direction: this.direction,
     },
     {
       symbol: 'NFLX',
@@ -38,6 +43,7 @@ export class MarketRepository {
       startPrice: 632.66,
       dayChangePercent: 0,
       volatility: this.volatility,
+      direction: this.direction,
     },
     {
       symbol: 'GOOG',
@@ -46,6 +52,7 @@ export class MarketRepository {
       startPrice: 2801.12,
       dayChangePercent: 0,
       volatility: this.volatility,
+      direction: this.direction,
     },
   ];
 

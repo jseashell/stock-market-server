@@ -1,4 +1,5 @@
-import { Volatility } from 'src/volatility/volatility.enum';
+import { Direction } from './direction.enum';
+import { Volatility } from 'src/stock/volatility.enum';
 
 export interface Stock {
   symbol: string;
@@ -7,6 +8,7 @@ export interface Stock {
   startPrice: number;
   dayChangePercent: number;
   volatility: Volatility;
+  direction: Direction;
 }
 
 /**

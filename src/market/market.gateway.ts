@@ -1,3 +1,4 @@
+import { Injectable } from '@nestjs/common';
 import {
   ConnectedSocket,
   MessageBody,
@@ -9,6 +10,7 @@ import { Server, Socket } from 'socket.io';
 import { GameClockService } from 'src/game-clock/game-clock.service';
 import { Stock } from 'src/stock/stock.interface';
 
+@Injectable()
 @WebSocketGateway(3001, { namespace: 'market', cors: true })
 export class MarketGateway {
   constructor(private gameClockService: GameClockService) {}

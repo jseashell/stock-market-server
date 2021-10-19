@@ -25,7 +25,7 @@ export class AppService {
     this.marketService.tick({ isNewDay: this.gameClockService.minutes === 0 });
   }
 
-  // @Interval('print', 250)
+  @Interval('print', 250)
   private debugPrint(): void {
     console.log(
       '=== Day ' +

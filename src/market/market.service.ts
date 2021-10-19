@@ -1,3 +1,4 @@
+import { GameClockService } from 'src/game-clock/game-clock.service';
 import { Injectable } from '@nestjs/common';
 import { MarketGateway } from './market.gateway';
 import { MarketRepository } from './market.repository';
@@ -5,7 +6,11 @@ import { Stock } from 'src/stock/stock.interface';
 
 @Injectable()
 export class MarketService {
-  constructor(private repo: MarketRepository, private gateway: MarketGateway) {}
+  constructor(
+    private repo: MarketRepository,
+    private gateway: MarketGateway,
+    private gameClockService: GameClockService,
+  ) {}
 
   /**
    * @returns all stocks in the market
