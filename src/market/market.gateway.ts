@@ -1,3 +1,4 @@
+import { Injectable } from '@nestjs/common';
 import {
   ConnectedSocket,
   MessageBody,
@@ -6,13 +7,11 @@ import {
   WebSocketServer,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
-import { GameClockService } from 'src/game-clock/game-clock.service';
-import { Stock } from 'src/stock/stock.interface';
+import { Stock } from '../stock/stock.interface';
 
+@Injectable()
 @WebSocketGateway(3001, { namespace: 'market', cors: true })
 export class MarketGateway {
-  constructor(private gameClockService: GameClockService) {}
-
   @WebSocketServer()
   private server: Server;
 
@@ -24,14 +23,9 @@ export class MarketGateway {
     client.broadcast.emit('hello', payload);
   }
 
-  emitMarket(stocks: Stock[]): void {
-    const time =
-      (8 + this.gameClockService.minutes / 60).toFixed(0).padStart(2, '0') +
-      ':' +
-      (this.gameClockService.minutes % 60).toFixed(0).padStart(2, '0');
-
+  emitMarket(stocks: Stock[], days: string, time: string): void {
     const payload = {
-      day: this.gameClockService.days,
+      day: days,
       time: time,
       stocks: stocks,
     };

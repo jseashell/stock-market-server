@@ -1,11 +1,16 @@
+import { GameClockService } from '../game-clock/game-clock.service';
 import { Injectable } from '@nestjs/common';
 import { MarketGateway } from './market.gateway';
 import { MarketRepository } from './market.repository';
-import { Stock } from 'src/stock/stock.interface';
+import { Stock } from '../stock/stock.interface';
 
 @Injectable()
 export class MarketService {
-  constructor(private repo: MarketRepository, private gateway: MarketGateway) {}
+  constructor(
+    private repo: MarketRepository,
+    private gateway: MarketGateway,
+    private gameClockService: GameClockService,
+  ) {}
 
   /**
    * @returns all stocks in the market
@@ -17,13 +22,14 @@ export class MarketService {
   /**
    * Ticks each stock in the market repo
    */
-  tick(props: { isNewDay?: boolean }): void {
+  tick(): void {
     this.repo.findAllStocks().forEach((stock) => {
       const rand = Math.random();
       const increment = (rand > 0.5 ? 1 + rand : -1 - rand) + rand;
 
+      const isNewDay: boolean = this.gameClockService.minutes === 0;
       let startPrice = stock.startPrice;
-      if (props.isNewDay) {
+      if (isNewDay) {
         startPrice = stock.price;
       }
 
@@ -37,7 +43,16 @@ export class MarketService {
       });
     });
 
-    this.gateway.emitMarket(this.repo.findAllStocks());
+    const time =
+      (8 + this.gameClockService.minutes / 60).toFixed(0).padStart(2, '0') +
+      ':' +
+      (this.gameClockService.minutes % 60).toFixed(0).padStart(2, '0');
+
+    this.gateway.emitMarket(
+      this.repo.findAllStocks(),
+      this.gameClockService.days.toString(),
+      time,
+    );
   }
 
   private calculateDayChangePercent(stock: Stock): number {

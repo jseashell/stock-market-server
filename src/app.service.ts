@@ -1,9 +1,8 @@
-import { Interval, SchedulerRegistry, Timeout } from '@nestjs/schedule';
+import { Interval, SchedulerRegistry } from '@nestjs/schedule';
 
 import { GameClockService } from './game-clock/game-clock.service';
 import { Injectable } from '@nestjs/common';
 import { MarketService } from './market/market.service';
-import { Stock } from './stock/stock.interface';
 
 @Injectable()
 export class AppService {
@@ -22,7 +21,7 @@ export class AppService {
   @Interval('tick', 250)
   private tick(): void {
     this.gameClockService.tick();
-    this.marketService.tick({ isNewDay: this.gameClockService.minutes === 0 });
+    this.marketService.tick();
   }
 
   // @Interval('print', 250)

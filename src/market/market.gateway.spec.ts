@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+
 import { MarketGateway } from './market.gateway';
 
 describe('MarketGateway', () => {

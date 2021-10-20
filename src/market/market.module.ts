@@ -5,8 +5,8 @@ import { MarketService } from './market.service';
 import { Module } from '@nestjs/common';
 
 @Module({
-  providers: [MarketService, MarketRepository, MarketGateway],
   imports: [GameClockModule],
+  providers: [MarketService, MarketRepository, MarketGateway],
   exports: [MarketService],
 })
 export class MarketModule {}
