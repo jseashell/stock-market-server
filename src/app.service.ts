@@ -18,13 +18,13 @@ export class AppService {
     clearInterval(this.schedulerRegistry.getInterval('print'));
   }
 
-  @Interval('tick', 250)
+  @Interval('tick', 1000)
   private tick(): void {
     this.gameClockService.tick();
     this.marketService.tick();
   }
 
-  // @Interval('print', 250)
+  @Interval('print', 1000)
   private debugPrint(): void {
     console.log(
       '=== Day ' +
