@@ -1,4 +1,4 @@
-import { GameClockModule } from 'src/game-clock/game-clock.module';
+import { GameClockModule } from '../game-clock/game-clock.module';
 import { MarketGateway } from './market.gateway';
 import { MarketRepository } from './market.repository';
 import { MarketService } from './market.service';
