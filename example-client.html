@@ -45,27 +45,48 @@
     ></script>
 
     <script>
-      const socket = io('http://localhost:3001/market');
+      const chatSocket = io('http://localhost:3001/chat');
+      const marketSocket = io('http://localhost:3002/market');
+
+      chatSocket.on('connect', () => {
+        console.log('Chat connected');
+      });
+
+      marketSocket.on('connect', () => {
+        console.log('Market connected');
+      });
+
+      chatSocket.on('exception', function (data) {
+        console.log('error-chat', data);
+      });
+
+      marketSocket.on('exception', function (data) {
+        console.log('error-market', data);
+      });
+
+      chatSocket.on('disconnect', function () {
+        console.log('Chat disconnected');
+      });
+
+      marketSocket.on('disconnect', function () {
+        console.log('Market disconnected');
+      });
 
       function sayHello() {
         console.log('Saying hello...');
-        socket.emit('hello', {
+        chatSocket.emit('hello', {
           username: document.getElementById('username').value,
         });
       }
 
-      socket.on('connect', () => {
-        console.log('Socket connected');
-      });
-
-      socket.on('hello', (data) => {
+      chatSocket.on('hello', (data) => {
         console.log('received hello');
         const li = document.createElement('li');
         li.innerText = data.username + ' says hi!';
         document.getElementById('users').appendChild(li);
       });
 
-      socket.on('market-update', (data) => {
+      marketSocket.on('market-update', (data) => {
         document.getElementById('day').innerText = data.day;
         document.getElementById('time').innerText = data.time;
 
@@ -117,14 +138,6 @@
 
           market.appendChild(tr);
         });
-      });
-
-      socket.on('exception', function (data) {
-        console.log('event', data);
-      });
-
-      socket.on('disconnect', function () {
-        console.log('Disconnected');
       });
     </script>
   </head>

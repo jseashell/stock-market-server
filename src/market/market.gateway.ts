@@ -10,7 +10,7 @@ import { Server, Socket } from 'socket.io';
 import { Stock } from '../stock/stock.interface';
 
 @Injectable()
-@WebSocketGateway(3001, { namespace: 'market', cors: true })
+@WebSocketGateway(3002, { namespace: 'market', cors: true })
 export class MarketGateway {
   @WebSocketServer()
   private server: Server;
