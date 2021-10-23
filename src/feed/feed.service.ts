@@ -1,3 +1,4 @@
+import { ClockService } from '../clock/clock.service';
 import { FeedGateway } from './feed.gateway';
 import { FeedPost } from './feed-post.interface';
 import { FeedRepository } from './feed.repository';
@@ -9,7 +10,11 @@ export class FeedService {
   private rollover = this.newRandom(7, 12);
   public currFeedPost: FeedPost = this.newFeedPost();
 
-  constructor(private repo: FeedRepository, private gateway: FeedGateway) {}
+  constructor(
+    private repo: FeedRepository,
+    private gateway: FeedGateway,
+    private clockService: ClockService,
+  ) {}
 
   getCurrentFeedPost(): FeedPost {
     return this.currFeedPost;
@@ -29,7 +34,10 @@ export class FeedService {
     return Math.floor(Math.random() * (max - min)) + min;
   }
 
-  private newFeedPost() {
-    return this.repo.get(this.newRandom(0, this.repo.count() - 1));
+  private newFeedPost(): FeedPost {
+    const feedPost = this.repo.get(this.newRandom(0, this.repo.count() - 1));
+    feedPost.day = this.clockService.days;
+    feedPost.time = this.clockService.time;
+    return feedPost;
   }
 }

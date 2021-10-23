@@ -51,16 +51,23 @@ export class AppService {
   }
 
   private debugPrint(): void {
+    console.clear();
+    this.debugPrintDay();
+    this.debugPrintTable();
+    this.debugPrintFeed();
+  }
+
+  private debugPrintDay() {
     console.log(
       '=== Day ' +
         this.clockService.days +
         ' === ' +
-        (8 + this.clockService.minutes / 60).toFixed(0).padStart(2, '0') +
-        ':' +
-        (this.clockService.minutes % 60).toFixed(0).padStart(2, '0') +
+        this.clockService.time +
         ' ==========================================',
     );
+  }
 
+  private debugPrintTable() {
     const table = this.marketService.findAll().map((stock) => {
       const dayChange =
         (stock.dayChangePercent >= 0 ? '+' : '') +
@@ -74,11 +81,9 @@ export class AppService {
       };
     });
     console.table(table);
+  }
 
-    console.log(
-      '==============================================================',
-    );
-
+  private debugPrintFeed() {
     if (this.feedPosts.length > 5) {
       this.feedPosts.shift();
     }
@@ -89,11 +94,10 @@ export class AppService {
         shortTitle += '...';
       }
 
-      console.log('* ' + shortTitle);
+      console.log(`${feedPost.time} ${shortTitle}`);
+
+      const text = feedPost.text.match(/.{1,80}[\s|$]/g);
+      text.forEach((t) => console.log('      > ' + t));
     });
-    console.log(
-      '==============================================================',
-    );
-    console.log('\n');
   }
 }

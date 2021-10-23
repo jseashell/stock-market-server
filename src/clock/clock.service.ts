@@ -8,12 +8,20 @@ export class ClockService {
     minutes: 0,
   };
 
-  get days() {
+  get days(): number {
     return this.clock.days;
   }
 
-  get minutes() {
+  get minutes(): number {
     return this.clock.minutes;
+  }
+
+  get time(): string {
+    return (
+      (8 + this.minutes / 60).toFixed(0).padStart(2, '0') +
+      ':' +
+      (this.minutes % 60).toFixed(0).padStart(2, '0')
+    );
   }
 
   tick(): void {

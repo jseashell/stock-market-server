@@ -4,8 +4,8 @@ export interface FeedPost {
   symbol?: string;
   title?: string;
   text?: string;
-  day?: string;
-  minutes?: string;
+  day?: number;
+  time?: string;
   volatility?: Volatility;
   // TODO direction: Direction;
 }
