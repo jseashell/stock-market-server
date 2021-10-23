@@ -8,8 +8,8 @@ import {
 import { Socket } from 'socket.io';
 
 @Injectable()
-@WebSocketGateway(3001, { namespace: 'chat', cors: true })
-export class ChatGateway {
+@WebSocketGateway(3001, { namespace: 'news-feed', cors: true })
+export class NewsFeedGateway {
   @SubscribeMessage('hello')
   handleHello(
     @ConnectedSocket() client: Socket,

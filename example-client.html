@@ -45,27 +45,27 @@
     ></script>
 
     <script>
-      const chatSocket = io('http://localhost:3001/chat');
+      const newsFeedSocket = io('http://localhost:3001/news-feed');
       const marketSocket = io('http://localhost:3002/market');
 
-      chatSocket.on('connect', () => {
-        console.log('Chat connected');
+      newsFeedSocket.on('connect', () => {
+        console.log('News feed connected');
       });
 
       marketSocket.on('connect', () => {
         console.log('Market connected');
       });
 
-      chatSocket.on('exception', function (data) {
-        console.log('error-chat', data);
+      newsFeedSocket.on('exception', function (data) {
+        console.log('error-news-feed', data);
       });
 
       marketSocket.on('exception', function (data) {
         console.log('error-market', data);
       });
 
-      chatSocket.on('disconnect', function () {
-        console.log('Chat disconnected');
+      newsFeedSocket.on('disconnect', function () {
+        console.log('News feed disconnected');
       });
 
       marketSocket.on('disconnect', function () {
@@ -74,12 +74,12 @@
 
       function sayHello() {
         console.log('Saying hello...');
-        chatSocket.emit('hello', {
+        newsFeedSocket.emit('hello', {
           username: document.getElementById('username').value,
         });
       }
 
-      chatSocket.on('hello', (data) => {
+      newsFeedSocket.on('hello', (data) => {
         console.log('received hello');
         const li = document.createElement('li');
         li.innerText = data.username + ' says hi!';
