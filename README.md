@@ -2,6 +2,8 @@
 
 Web socket API for a simulated stock market
 
+![demo](https://github.com/jseashell/stock-market-server/blob/main/demo.gif)
+
 ## Installation
 
 ```shell
