@@ -1,12 +1,7 @@
+import { WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
+
 import { Injectable } from '@nestjs/common';
-import {
-  ConnectedSocket,
-  MessageBody,
-  SubscribeMessage,
-  WebSocketGateway,
-  WebSocketServer,
-} from '@nestjs/websockets';
-import { Server, Socket } from 'socket.io';
+import { Server } from 'socket.io';
 import { Stock } from '../stock/stock.interface';
 
 @Injectable()
@@ -14,14 +9,6 @@ import { Stock } from '../stock/stock.interface';
 export class MarketGateway {
   @WebSocketServer()
   private server: Server;
-
-  @SubscribeMessage('hello')
-  handleHello(
-    @ConnectedSocket() client: Socket,
-    @MessageBody() payload: any,
-  ): void {
-    client.broadcast.emit('hello', payload);
-  }
 
   emitMarket(stocks: Stock[], days: string, time: string): void {
     const payload = {
