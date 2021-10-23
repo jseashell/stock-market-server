@@ -18,7 +18,6 @@ export class FeedService {
   tick(): void {
     this.tickCount++;
     if (this.tickCount >= this.rollover) {
-      console.log('Feed rollover');
       this.tickCount = 0;
       this.rollover = this.newRandom(7, 12);
       this.currFeedPost = this.newFeedPost();

@@ -1,10 +1,9 @@
-import { Interval, SchedulerRegistry } from '@nestjs/schedule';
-
 import { ClockService } from './clock/clock.service';
 import { FeedPost } from './feed/feed-post.interface';
 import { FeedService } from './feed/feed.service';
 import { Injectable } from '@nestjs/common';
 import { MarketService } from './market/market.service';
+import { SchedulerRegistry } from '@nestjs/schedule';
 
 @Injectable()
 export class AppService {
@@ -14,10 +13,26 @@ export class AppService {
     private marketService: MarketService,
     private clockService: ClockService,
     private feedService: FeedService,
-    private schedulerRegistry: SchedulerRegistry,
-  ) {}
+    private scheduler: SchedulerRegistry,
+  ) {
+    const tickMillis = parseInt(process.env.TICK_MILLIS) || 1000;
+    console.log(`Tick millis set to ${tickMillis}`);
 
-  @Interval('tick', 1000)
+    const tickInterval = setInterval(() => this.tick(), tickMillis);
+    this.scheduler.addInterval('tick', tickInterval);
+
+    if (process.env.DEBUG_PRINT === 'true') {
+      console.log('Debug printing enabled');
+      const debugPrintInterval = setInterval(
+        () => this.debugPrint(),
+        tickMillis,
+      );
+      this.scheduler.addInterval('print', debugPrintInterval);
+    } else {
+      console.log('Debug printing disabled');
+    }
+  }
+
   private tick(): void {
     this.clockService.tick();
     this.marketService.tick();
@@ -35,13 +50,6 @@ export class AppService {
     }
   }
 
-  // @Timeout('stop-tick', 650)
-  private stopTick(): void {
-    clearInterval(this.schedulerRegistry.getInterval('tick'));
-    clearInterval(this.schedulerRegistry.getInterval('print'));
-  }
-
-  @Interval('print', 1000)
   private debugPrint(): void {
     console.log(
       '=== Day ' +
@@ -50,26 +58,42 @@ export class AppService {
         (8 + this.clockService.minutes / 60).toFixed(0).padStart(2, '0') +
         ':' +
         (this.clockService.minutes % 60).toFixed(0).padStart(2, '0') +
-        ' ===',
+        ' ==========================================',
     );
 
-    const ticker = this.marketService.findAll().map((stock) => {
-      return (
-        stock.symbol +
-        ' $' +
-        stock.price.toFixed(2) +
+    const table = this.marketService.findAll().map((stock) => {
+      const dayChange =
         (stock.dayChangePercent >= 0 ? '+' : '') +
-        stock.dayChangePercent.toFixed(2) +
-        '%'
-      );
+        stock.dayChangePercent.toFixed(2).padStart(6, ' ') +
+        '%';
+      return {
+        symbol: stock.symbol,
+        price: '$' + stock.price.toFixed(2).padStart(9, ' '),
+        'day-change': dayChange,
+        open: stock.startPrice.toFixed(2).padStart(9, ' '),
+      };
     });
-    console.log(ticker.join(' | '));
-    console.log('========================');
-    console.log('Feed:');
-    this.feedPosts.forEach((feedPost) =>
-      console.log('* ' + feedPost.title + '\n\t' + feedPost.text),
+    console.table(table);
+
+    console.log(
+      '==============================================================',
     );
 
+    if (this.feedPosts.length > 5) {
+      this.feedPosts.shift();
+    }
+
+    this.feedPosts.forEach((feedPost) => {
+      let shortTitle = feedPost.title.substring(0, 60);
+      if (feedPost.title.length > 60) {
+        shortTitle += '...';
+      }
+
+      console.log('* ' + shortTitle);
+    });
+    console.log(
+      '==============================================================',
+    );
     console.log('\n');
   }
 }

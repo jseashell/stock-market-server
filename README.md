@@ -8,7 +8,7 @@ Web socket API for a simulated stock market
 npm install
 ```
 
-## Running the app
+## Running the server
 
 ```shell
 # development
@@ -20,6 +20,12 @@ npm run start:dev
 # production mode
 npm run start:prod
 ```
+
+## Client
+
+Check out the rich [web client](https://www.github.com/jseashell/stock-market-client)!
+
+Or keep it simple with [example-client.html](./example-client.html). Run the server, then open the local file in a browser.
 
 ## Test
 
@@ -34,7 +40,14 @@ npm run test:e2e
 npm run test:cov
 ```
 
-An example web client is provided. Open [example-client.html](./example-client.html) in a browser.
+## Environment
+
+This app can be configured with a `.env` at the root of the project. Refer to the [.env.example](/.env.example) for options.
+
+## Further help
+
+- [NestJS](https://docs.nestjs.com/)
+- [Socket.io](https://socket.io/)
 
 ## License
 
