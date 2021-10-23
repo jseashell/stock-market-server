@@ -12,16 +12,16 @@ export class AppService {
     private schedulerRegistry: SchedulerRegistry,
   ) {}
 
-  // @Timeout('stop-tick', 650)
-  private stopTick(): void {
-    clearInterval(this.schedulerRegistry.getInterval('tick'));
-    clearInterval(this.schedulerRegistry.getInterval('print'));
-  }
-
   @Interval('tick', 1000)
   private tick(): void {
     this.clockService.tick();
     this.marketService.tick();
+  }
+
+  // @Timeout('stop-tick', 650)
+  private stopTick(): void {
+    clearInterval(this.schedulerRegistry.getInterval('tick'));
+    clearInterval(this.schedulerRegistry.getInterval('print'));
   }
 
   @Interval('print', 1000)
