@@ -1,4 +1,4 @@
-# Stock Market
+# Stock Market Server
 
 Web socket API for a simulated stock market
 

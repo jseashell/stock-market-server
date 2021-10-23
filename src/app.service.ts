@@ -84,7 +84,7 @@ export class AppService {
   }
 
   private debugPrintFeed() {
-    if (this.feedPosts.length > 5) {
+    if (this.feedPosts.length >= 5) {
       this.feedPosts.shift();
     }
 

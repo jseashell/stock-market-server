@@ -21,12 +21,15 @@ export class FeedService {
   }
 
   tick(): void {
+    if (this.tickCount === 0) {
+      this.gateway.emitNewFeedPost(this.currFeedPost);
+    }
+
     this.tickCount++;
     if (this.tickCount >= this.rollover) {
       this.tickCount = 0;
       this.rollover = this.newRandom(7, 12);
       this.currFeedPost = this.newFeedPost();
-      this.gateway.emitNewFeedPost(this.currFeedPost);
     }
   }
 
