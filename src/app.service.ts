@@ -1,6 +1,6 @@
 import { Interval, SchedulerRegistry } from '@nestjs/schedule';
 
-import { GameClockService } from './game-clock/game-clock.service';
+import { ClockService } from './clock/clock.service';
 import { Injectable } from '@nestjs/common';
 import { MarketService } from './market/market.service';
 
@@ -8,7 +8,7 @@ import { MarketService } from './market/market.service';
 export class AppService {
   constructor(
     private marketService: MarketService,
-    private gameClockService: GameClockService,
+    private clockService: ClockService,
     private schedulerRegistry: SchedulerRegistry,
   ) {}
 
@@ -20,7 +20,7 @@ export class AppService {
 
   @Interval('tick', 1000)
   private tick(): void {
-    this.gameClockService.tick();
+    this.clockService.tick();
     this.marketService.tick();
   }
 
@@ -28,11 +28,11 @@ export class AppService {
   private debugPrint(): void {
     console.log(
       '=== Day ' +
-        this.gameClockService.days +
+        this.clockService.days +
         ' === ' +
-        (8 + this.gameClockService.minutes / 60).toFixed(0).padStart(2, '0') +
+        (8 + this.clockService.minutes / 60).toFixed(0).padStart(2, '0') +
         ':' +
-        (this.gameClockService.minutes % 60).toFixed(0).padStart(2, '0') +
+        (this.clockService.minutes % 60).toFixed(0).padStart(2, '0') +
         ' ===',
     );
     const table = this.marketService.findAll().map((stock) => {

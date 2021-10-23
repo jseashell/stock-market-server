@@ -1,4 +1,4 @@
-import { GameClockService } from '../game-clock/game-clock.service';
+import { ClockService } from '../clock/clock.service';
 import { Injectable } from '@nestjs/common';
 import { MarketGateway } from './market.gateway';
 import { MarketRepository } from './market.repository';
@@ -9,7 +9,7 @@ export class MarketService {
   constructor(
     private repo: MarketRepository,
     private gateway: MarketGateway,
-    private gameClockService: GameClockService,
+    private clockService: ClockService,
   ) {}
 
   /**
@@ -27,7 +27,7 @@ export class MarketService {
       const rand = Math.random();
       const increment = (rand > 0.5 ? 1 + rand : -1 - rand) + rand;
 
-      const isNewDay: boolean = this.gameClockService.minutes === 0;
+      const isNewDay: boolean = this.clockService.minutes === 0;
       let startPrice = stock.startPrice;
       if (isNewDay) {
         startPrice = stock.price;
@@ -44,13 +44,13 @@ export class MarketService {
     });
 
     const time =
-      (8 + this.gameClockService.minutes / 60).toFixed(0).padStart(2, '0') +
+      (8 + this.clockService.minutes / 60).toFixed(0).padStart(2, '0') +
       ':' +
-      (this.gameClockService.minutes % 60).toFixed(0).padStart(2, '0');
+      (this.clockService.minutes % 60).toFixed(0).padStart(2, '0');
 
     this.gateway.emitMarket(
       this.repo.findAllStocks(),
-      this.gameClockService.days.toString(),
+      this.clockService.days.toString(),
       time,
     );
   }

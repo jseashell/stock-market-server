@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { GameClockModule } from '../game-clock/game-clock.module';
+import { ClockModule } from '../clock/clock.module';
 import { MarketGateway } from './market.gateway';
 import { MarketRepository } from './market.repository';
 import { MarketService } from './market.service';
@@ -10,7 +10,7 @@ describe('MarketService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [GameClockModule],
+      imports: [ClockModule],
       providers: [MarketService, MarketRepository, MarketGateway],
     }).compile();
 
