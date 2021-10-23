@@ -4,9 +4,9 @@
       body {
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: 100vw;
+        align-items: flex-start;
+        justify-content: flex-start;
+        width: 50vw;
         height: 100vh;
       }
       p.clock {
@@ -26,16 +26,12 @@
       table {
         border-collapse: collapse;
         margin-bottom: 1vw;
+        min-width: 50vw;
       }
-      div.button-group {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        width: 25vw;
-      }
-      input {
-        width: 10vw;
+      .feed {
+        outline: 1px solid black;
+        padding: 1vw;
+        min-width: 50vw;
       }
     </style>
     <script
@@ -45,10 +41,10 @@
     ></script>
 
     <script>
-      const newsFeedSocket = io('http://localhost:3001/feed');
+      const feedSocket = io('http://localhost:3001/feed');
       const marketSocket = io('http://localhost:3002/market');
 
-      newsFeedSocket.on('connect', () => {
+      feedSocket.on('connect', () => {
         console.log('News feed connected');
       });
 
@@ -56,7 +52,7 @@
         console.log('Market connected');
       });
 
-      newsFeedSocket.on('exception', function (data) {
+      feedSocket.on('exception', function (data) {
         console.log('error-news-feed', data);
       });
 
@@ -64,26 +60,12 @@
         console.log('error-market', data);
       });
 
-      newsFeedSocket.on('disconnect', function () {
+      feedSocket.on('disconnect', function () {
         console.log('News feed disconnected');
       });
 
       marketSocket.on('disconnect', function () {
         console.log('Market disconnected');
-      });
-
-      function sayHello() {
-        console.log('Saying hello...');
-        newsFeedSocket.emit('hello', {
-          username: document.getElementById('username').value,
-        });
-      }
-
-      newsFeedSocket.on('hello', (data) => {
-        console.log('received hello');
-        const li = document.createElement('li');
-        li.innerText = data.username + ' says hi!';
-        document.getElementById('users').appendChild(li);
       });
 
       marketSocket.on('market-update', (data) => {
@@ -139,16 +121,38 @@
           market.appendChild(tr);
         });
       });
+
+      const feedPosts = [];
+      feedSocket.on('update-feed', (data) => {
+        if (feedPosts.length >= 5) {
+          feedPosts.shift();
+        }
+        feedPosts.push(data);
+
+        const div = document.getElementById('feed');
+        div.replaceChildren();
+        feedPosts.forEach((feedPost) => {
+          let shortTitle = feedPost.title.substring(0, 60);
+          if (feedPost.title.length > 60) {
+            shortTitle += '...';
+          }
+
+          let content = `${feedPost.time} ${shortTitle}\n`;
+
+          const text = feedPost.text.match(/.{1,60}[\s|$]/g);
+          text.forEach((t) => (content += '\t> ' + t + '\n'));
+
+          const p = document.createElement('p');
+          p.innerText = content;
+          div.appendChild(p);
+        });
+      });
     </script>
   </head>
 
   <body>
     <p class="clock">Day <span id="day"></span> <span id="time"></span></p>
     <table id="market"></table>
-    <div class="button-group">
-      <input type="text" id="username" placeholder="Username" />
-      <button onclick="sayHello()">Say Hello</button>
-    </div>
-    <ul id="users"></ul>
+    <div id="feed" class="feed"></div>
   </body>
 </html>
