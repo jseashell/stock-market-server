@@ -1,20 +1,16 @@
+import { WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
+
+import { FeedPost } from './feed-post.interface';
 import { Injectable } from '@nestjs/common';
-import {
-  ConnectedSocket,
-  MessageBody,
-  SubscribeMessage,
-  WebSocketGateway,
-} from '@nestjs/websockets';
-import { Socket } from 'socket.io';
+import { Server } from 'socket.io';
 
 @Injectable()
 @WebSocketGateway(3001, { namespace: 'feed', cors: true })
 export class FeedGateway {
-  @SubscribeMessage('hello')
-  handleHello(
-    @ConnectedSocket() client: Socket,
-    @MessageBody() payload: any,
-  ): void {
-    client.broadcast.emit('hello', payload);
+  @WebSocketServer()
+  private server: Server;
+
+  emitNewFeedPost(feedPost: FeedPost): void {
+    this.server.emit('update-feed', feedPost);
   }
 }

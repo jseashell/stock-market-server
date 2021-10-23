@@ -45,7 +45,7 @@
     ></script>
 
     <script>
-      const newsFeedSocket = io('http://localhost:3001/news-feed');
+      const newsFeedSocket = io('http://localhost:3001/feed');
       const marketSocket = io('http://localhost:3002/market');
 
       newsFeedSocket.on('connect', () => {
