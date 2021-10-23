@@ -35,9 +35,6 @@ Or keep it simple with [example-client.html](./example-client.html). Run the ser
 # unit tests
 npm run test
 
-# e2e tests
-npm run test:e2e
-
 # test coverage
 npm run test:cov
 ```
