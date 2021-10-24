@@ -1,5 +1,5 @@
 export enum Volatility {
-  LOW = 5,
-  MEDIUM = 10,
-  HIGH = 20,
+  LOW = 0.03,
+  MEDIUM = 0.07,
+  HIGH = 0.12,
 }
