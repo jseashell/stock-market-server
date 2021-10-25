@@ -13,18 +13,25 @@ export class MarketService {
     private clockService: ClockService,
   ) {}
 
-  /**
-   * @returns all stocks in the market
-   */
   findAll(): Stock[] {
     return this.repo.findAllStocks();
   }
 
+  findOne(symbol: string): Stock {
+    return this.findAll().filter((stock) => stock.symbol === symbol)[0];
+  }
   /**
    * Ticks each stock in the market repo
    */
   tick(): void {
     this.repo.findAllStocks().forEach((stock) => {
+      const lastPrice = stock.price;
+      const newHistory = stock.history;
+      if (newHistory.length >= 30) {
+        newHistory.shift();
+      }
+      newHistory.push(lastPrice);
+
       const newPrice = this.calculateNewPrice(stock.price, stock.volatility);
 
       const isNewDay: boolean = this.clockService.minutes === 0;
@@ -38,6 +45,7 @@ export class MarketService {
         price: newPrice,
         startPrice: startPrice,
         dayChangePercent: dayChangePercent,
+        history: newHistory,
       });
     });
 

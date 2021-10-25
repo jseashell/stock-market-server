@@ -6,6 +6,7 @@ import { FeedModule } from './feed/feed.module';
 import { MarketModule } from './market/market.module';
 import { Module } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
+import { StockModule } from './stock/stock.module';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { ScheduleModule } from '@nestjs/schedule';
     FeedModule,
     ClockModule,
     MarketModule,
+    StockModule,
   ],
   providers: [AppService],
   controllers: [AppController],

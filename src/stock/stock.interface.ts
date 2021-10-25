@@ -7,6 +7,7 @@ export interface Stock {
   startPrice: number;
   dayChangePercent: number;
   volatility: Volatility;
+  history?: number[];
 }
 
 /**

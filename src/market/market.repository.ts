@@ -14,6 +14,7 @@ export class MarketRepository {
       startPrice: 330.05,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'AAPL',
@@ -22,6 +23,7 @@ export class MarketRepository {
       startPrice: 142.9,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'AMZN',
@@ -30,6 +32,7 @@ export class MarketRepository {
       startPrice: 3288.62,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'NFLX',
@@ -38,6 +41,7 @@ export class MarketRepository {
       startPrice: 632.66,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'GOOG',
@@ -46,6 +50,7 @@ export class MarketRepository {
       startPrice: 2801.12,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'ACM',
@@ -54,6 +59,7 @@ export class MarketRepository {
       startPrice: 36.6,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'ATER',
@@ -62,6 +68,7 @@ export class MarketRepository {
       startPrice: 7.49,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'DIS',
@@ -70,6 +77,7 @@ export class MarketRepository {
       startPrice: 169.42,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'DKS',
@@ -78,6 +86,7 @@ export class MarketRepository {
       startPrice: 125.82,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'EBAY',
@@ -86,6 +95,7 @@ export class MarketRepository {
       startPrice: 80.59,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'ETSY',
@@ -94,6 +104,7 @@ export class MarketRepository {
       startPrice: 241.27,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'GME',
@@ -102,6 +113,7 @@ export class MarketRepository {
       startPrice: 169.8,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'PLAY',
@@ -110,6 +122,7 @@ export class MarketRepository {
       startPrice: 38.27,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'PTON',
@@ -118,6 +131,7 @@ export class MarketRepository {
       startPrice: 93.83,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'SDC',
@@ -126,6 +140,7 @@ export class MarketRepository {
       startPrice: 5.39,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'BTCUSD',
@@ -134,6 +149,7 @@ export class MarketRepository {
       startPrice: 59857.59,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'ETHUSD',
@@ -142,6 +158,7 @@ export class MarketRepository {
       startPrice: 3967.07,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'GREE',
@@ -150,6 +167,7 @@ export class MarketRepository {
       startPrice: 20.36,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'HUT',
@@ -158,6 +176,7 @@ export class MarketRepository {
       startPrice: 11.15,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'OKTA',
@@ -166,6 +185,7 @@ export class MarketRepository {
       startPrice: 260.38,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'PANW',
@@ -174,6 +194,7 @@ export class MarketRepository {
       startPrice: 504.13,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'CRWD',
@@ -182,6 +203,7 @@ export class MarketRepository {
       startPrice: 283.39,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'MIME',
@@ -190,6 +212,7 @@ export class MarketRepository {
       startPrice: 68.87,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'FTNT',
@@ -198,6 +221,7 @@ export class MarketRepository {
       startPrice: 335.29,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'NET',
@@ -206,6 +230,7 @@ export class MarketRepository {
       startPrice: 181.35,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'CHPT',
@@ -214,6 +239,7 @@ export class MarketRepository {
       startPrice: 21.35,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'GOEV',
@@ -222,6 +248,7 @@ export class MarketRepository {
       startPrice: 6.99,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'RUN',
@@ -230,6 +257,7 @@ export class MarketRepository {
       startPrice: 51.69,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'TSLA',
@@ -238,6 +266,7 @@ export class MarketRepository {
       startPrice: 909.68,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'DELL',
@@ -246,6 +275,7 @@ export class MarketRepository {
       startPrice: 114.54,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'AMD',
@@ -254,6 +284,7 @@ export class MarketRepository {
       startPrice: 119.82,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'NVDA',
@@ -262,6 +293,7 @@ export class MarketRepository {
       startPrice: 227.26,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'WDC',
@@ -270,6 +302,7 @@ export class MarketRepository {
       startPrice: 57.05,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'MU',
@@ -278,6 +311,7 @@ export class MarketRepository {
       startPrice: 67.51,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'ABUS',
@@ -286,6 +320,7 @@ export class MarketRepository {
       startPrice: 4.03,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'ATOS',
@@ -294,6 +329,7 @@ export class MarketRepository {
       startPrice: 2.78,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'BNTX',
@@ -302,6 +338,7 @@ export class MarketRepository {
       startPrice: 278.34,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'CTXR',
@@ -310,6 +347,7 @@ export class MarketRepository {
       startPrice: 1.94,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'LH',
@@ -318,6 +356,7 @@ export class MarketRepository {
       startPrice: 282.15,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'MRNA',
@@ -326,6 +365,7 @@ export class MarketRepository {
       startPrice: 326.54,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'PFE',
@@ -334,6 +374,7 @@ export class MarketRepository {
       startPrice: 43.16,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'VIAC',
@@ -342,6 +383,7 @@ export class MarketRepository {
       startPrice: 37.51,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'ABNB',
@@ -350,6 +392,7 @@ export class MarketRepository {
       startPrice: 166.64,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'CRM',
@@ -358,6 +401,7 @@ export class MarketRepository {
       startPrice: 292.56,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'DOCU',
@@ -366,6 +410,7 @@ export class MarketRepository {
       startPrice: 273.73,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'B',
@@ -374,6 +419,7 @@ export class MarketRepository {
       startPrice: 324.61,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'MSFT',
@@ -382,6 +428,7 @@ export class MarketRepository {
       startPrice: 309.16,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'NEGG',
@@ -390,6 +437,7 @@ export class MarketRepository {
       startPrice: 13.37,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'PINS',
@@ -398,6 +446,7 @@ export class MarketRepository {
       startPrice: 58.06,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'PLTR',
@@ -406,6 +455,7 @@ export class MarketRepository {
       startPrice: 24.43,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'ROKU',
@@ -414,6 +464,7 @@ export class MarketRepository {
       startPrice: 321.88,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
     {
       symbol: 'ZM',
@@ -422,6 +473,7 @@ export class MarketRepository {
       startPrice: 277.58,
       dayChangePercent: 0,
       volatility: this.volatility,
+      history: [],
     },
   ];
 
