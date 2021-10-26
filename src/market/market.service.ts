@@ -25,13 +25,6 @@ export class MarketService {
    */
   tick(): void {
     this.repo.findAllStocks().forEach((stock) => {
-      const lastPrice = stock.price;
-      const newHistory = stock.history;
-      if (newHistory.length >= 30) {
-        newHistory.shift();
-      }
-      newHistory.push(lastPrice);
-
       const newPrice = this.calculateNewPrice(stock.price, stock.volatility);
 
       const isNewDay: boolean = this.clockService.minutes === 0;
@@ -43,21 +36,17 @@ export class MarketService {
 
       this.repo.update(stock.symbol, {
         price: newPrice,
+        days: this.clockService.days,
+        minutes: this.clockService.minutes,
         startPrice: startPrice,
         dayChangePercent: dayChangePercent,
-        history: newHistory,
       });
     });
 
-    const time =
-      (8 + this.clockService.minutes / 60).toFixed(0).padStart(2, '0') +
-      ':' +
-      (this.clockService.minutes % 60).toFixed(0).padStart(2, '0');
-
     this.gateway.emitMarket(
       this.repo.findAllStocks(),
-      this.clockService.days.toString(),
-      time,
+      this.clockService.days,
+      this.clockService.minutes,
     );
   }
 

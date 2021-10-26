@@ -3,11 +3,12 @@ import { Volatility } from '../volatility/volatility.enum';
 export interface Stock {
   symbol: string;
   price: number;
+  days: number;
+  minutes: number;
   lastPrice: number;
   startPrice: number;
   dayChangePercent: number;
   volatility: Volatility;
-  history?: number[];
 }
 
 /**
