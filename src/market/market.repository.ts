@@ -1,4 +1,4 @@
-import { Stock, UpdateStock } from '../stock/stock';
+import { CreateStock, Stock, UpdateStock } from '../stock/stock';
 
 import { Injectable } from '@nestjs/common';
 import { Volatility } from '../volatility/volatility';
@@ -530,9 +530,27 @@ export class MarketRepository {
   ];
 
   /**
+   * Creates a {@link Stock} in the repo using the given options
+   *
+   * @param options a {@link CreateStock}
+   * @returns the created stock
+   */
+  create(options: CreateStock): Stock {
+    const stock: Stock = {
+      startPrice: options.price,
+      lastPrice: options.price,
+      dayChangePercent: 0,
+      ...options,
+    };
+
+    this.stocks.push(stock);
+
+    return stock;
+  }
+  /**
    * @returns {Stock[]} all stocks in the market repo
    */
-  findAllStocks(): Stock[] {
+  findAll(): Stock[] {
     return this.stocks;
   }
 
@@ -544,15 +562,15 @@ export class MarketRepository {
    * @returns the updated stock
    */
   update(symbol: string, options: UpdateStock): Stock {
-    const updated = this.stocks.filter((s) => symbol === s.symbol)[0];
-    updated.lastPrice = updated.price;
-    updated.price = options.price || updated.price;
-    updated.days = options.days || updated.days;
-    updated.minutes = options.minutes || updated.minutes;
-    updated.startPrice = options.startPrice || updated.startPrice;
-    updated.dayChangePercent =
-      options.dayChangePercent || updated.dayChangePercent;
-    updated.volatility = options.volatility || updated.volatility;
+    const toUpdate = this.stocks.filter((s) => symbol === s.symbol)[0];
+
+    const lastPrice = toUpdate.price;
+    const updated = {
+      ...toUpdate,
+      ...options,
+      lastPrice: lastPrice,
+    };
+
     return updated;
   }
 }

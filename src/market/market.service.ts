@@ -14,17 +14,14 @@ export class MarketService {
   ) {}
 
   findAll(): Stock[] {
-    return this.repo.findAllStocks();
+    return this.repo.findAll();
   }
 
-  findOne(symbol: string): Stock {
-    return this.findAll().filter((stock) => stock.symbol === symbol)[0];
-  }
   /**
    * Ticks each stock in the market repo
    */
   tick(): void {
-    this.repo.findAllStocks().forEach((stock) => {
+    this.repo.findAll().forEach((stock) => {
       const newPrice = this.calculateNewPrice(stock.price, stock.volatility);
 
       const isNewDay: boolean = this.clockService.minutes === 0;
@@ -44,7 +41,7 @@ export class MarketService {
     });
 
     this.gateway.emitMarket(
-      this.repo.findAllStocks(),
+      this.repo.findAll(),
       this.clockService.days,
       this.clockService.minutes,
     );

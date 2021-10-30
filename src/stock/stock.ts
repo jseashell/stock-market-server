@@ -14,7 +14,10 @@ export interface Stock {
 /**
  * Create options for a {@link Stock}
  */
-export type CreateStock = Omit<Stock, 'lastPrice' | 'dayChangePercent'>;
+export type CreateStock = Omit<
+  Stock,
+  'startPrice' | 'lastPrice' | 'dayChangePercent'
+>;
 
 /**
  * Update options for a {@link Stock}
