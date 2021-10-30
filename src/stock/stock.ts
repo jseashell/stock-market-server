@@ -1,4 +1,4 @@
-import { Volatility } from '../volatility/volatility.enum';
+import { Volatility } from '../volatility/volatility';
 
 export interface Stock {
   symbol: string;

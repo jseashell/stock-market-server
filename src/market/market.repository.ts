@@ -1,7 +1,7 @@
 import { Stock, UpdateStock } from '../stock/stock';
 
 import { Injectable } from '@nestjs/common';
-import { Volatility } from '../volatility/volatility.enum';
+import { Volatility } from '../volatility/volatility';
 
 @Injectable()
 export class MarketRepository {

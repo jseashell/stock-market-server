@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { MarketGateway } from './market.gateway';
 import { MarketRepository } from './market.repository';
 import { Stock } from '../stock/stock';
-import { Volatility } from '../volatility/volatility.enum';
+import { Volatility } from '../volatility/volatility';
 
 @Injectable()
 export class MarketService {
