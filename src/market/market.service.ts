@@ -2,7 +2,7 @@ import { ClockService } from '../clock/clock.service';
 import { Injectable } from '@nestjs/common';
 import { MarketGateway } from './market.gateway';
 import { MarketRepository } from './market.repository';
-import { Stock } from '../stock/stock.interface';
+import { Stock } from '../stock/stock';
 import { Volatility } from '../volatility/volatility.enum';
 
 @Injectable()

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { MarketService } from '../market/market.service';
-import { Stock } from './stock.interface';
+import { Stock } from './stock';
 
 @Injectable()
 export class StockService {

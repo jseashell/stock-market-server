@@ -2,7 +2,7 @@ import { WebSocketGateway, WebSocketServer } from '@nestjs/websockets';
 
 import { Injectable } from '@nestjs/common';
 import { Server } from 'socket.io';
-import { Stock } from '../stock/stock.interface';
+import { Stock } from '../stock/stock';
 
 @Injectable()
 @WebSocketGateway(3002, { namespace: 'market', cors: true })

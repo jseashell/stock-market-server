@@ -1,5 +1,5 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { Stock } from './stock.interface';
+import { Stock } from './stock';
 import { StockService } from './stock.service';
 
 @Controller('stock')
