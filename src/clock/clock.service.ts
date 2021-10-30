@@ -1,4 +1,5 @@
 import { Clock } from './clock.interface';
+import { ClockGateway } from './clock.gateway';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
@@ -7,6 +8,8 @@ export class ClockService {
     days: 1,
     minutes: 0,
   };
+
+  constructor(private gateway: ClockGateway) {}
 
   get days(): number {
     return this.clock.days;
@@ -30,5 +33,7 @@ export class ClockService {
       this.clock.minutes = 0;
       this.clock.days++;
     }
+
+    this.gateway.emitClock();
   }
 }

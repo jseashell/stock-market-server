@@ -1,5 +1,6 @@
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { ClockGateway } from './clock/clock.gateway';
 import { ClockModule } from './clock/clock.module';
 import { ConfigModule } from '@nestjs/config';
 import { FeedModule } from './feed/feed.module';
