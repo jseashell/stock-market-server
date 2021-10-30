@@ -8,6 +8,6 @@ import { MarketService } from './market.service';
 @Module({
   imports: [ClockModule],
   providers: [Logger, MarketService, MarketRepository, MarketGateway],
-  exports: [MarketService],
+  exports: [MarketService, MarketRepository],
 })
 export class MarketModule {}

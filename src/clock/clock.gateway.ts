@@ -8,12 +8,10 @@ export class ClockGateway {
   @WebSocketServer()
   private server: Server;
 
-  constructor(private clockService: ClockService) {}
-
-  emitClock(): void {
+  emitClock(day: number, time: string): void {
     this.server.emit('update-clock', {
-      day: this.clockService.days,
-      time: this.clockService.time,
+      day: day,
+      time: time,
     });
   }
 }

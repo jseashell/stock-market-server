@@ -1,6 +1,7 @@
 import { ClockService } from './clock/clock.service';
 import { FeedService } from './feed/feed.service';
 import { Injectable } from '@nestjs/common';
+import { MarketRepository } from './market/market.repository';
 import { MarketService } from './market/market.service';
 import { Post } from './feed/feed-post.interface';
 import { SchedulerRegistry } from '@nestjs/schedule';
@@ -10,11 +11,14 @@ export class AppService {
   private feedPosts: Post[] = [];
 
   constructor(
+    private marketRepo: MarketRepository,
     private marketService: MarketService,
     private clockService: ClockService,
     private feedService: FeedService,
     private scheduler: SchedulerRegistry,
   ) {
+    this.marketRepo.initWithSeed();
+
     const tickMillis = parseInt(process.env.TICK_MILLIS) || 1000;
     console.log(`Tick millis set to ${tickMillis}`);
 

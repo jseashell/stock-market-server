@@ -45,11 +45,7 @@ export class MarketService {
       });
     });
 
-    this.gateway.emitMarket(
-      this.repo.findAll(),
-      this.clock.days,
-      this.clock.minutes,
-    );
+    this.gateway.emitMarket(this.repo.findAll());
   }
 
   /**

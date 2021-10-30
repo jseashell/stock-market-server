@@ -34,6 +34,6 @@ export class ClockService {
       this.clock.days++;
     }
 
-    this.gateway.emitClock();
+    this.gateway.emitClock(this.days, this.time);
   }
 }

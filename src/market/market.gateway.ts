@@ -10,11 +10,9 @@ export class MarketGateway {
   @WebSocketServer()
   private server: Server;
 
-  emitMarket(stocks: Stock[], days: number, minutes: number): void {
+  emitMarket(stocks: Stock[]): void {
     const payload = {
       stocks: stocks,
-      days: days,
-      minutes: minutes,
     };
 
     this.server.emit('market-update', payload);
