@@ -1,7 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { ClockModule } from '../clock/clock.module';
-import { ClockService } from '../clock/clock.service';
 import { FeedGateway } from './feed.gateway';
 import { FeedRepository } from './feed.repository';
 import { FeedService } from './feed.service';
