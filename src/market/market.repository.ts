@@ -1,12 +1,15 @@
 import { CreateStock, Stock, UpdateStock } from '../stock/stock';
+import { Injectable, Logger } from '@nestjs/common';
 
-import { Injectable } from '@nestjs/common';
 import { Volatility } from '../volatility/volatility';
 
 @Injectable()
 export class MarketRepository {
+  private isLocked = false;
   private volatility: Volatility = Volatility.MEDIUM;
-  private stocks: Stock[] = [
+  private stocks: { [symbol: string]: Stock } = {};
+
+  private seed: Stock[] = [
     {
       symbol: 'FB',
       price: 330.05,
@@ -529,12 +532,39 @@ export class MarketRepository {
     },
   ];
 
+  constructor(private logger: Logger) {}
+
   /**
-   * Creates a {@link Stock} in the repo using the given options
+   * Initialized this repo with the given stocks. Removes existing stocks.
    *
-   * @param options a {@link CreateStock}
-   * @returns the created stock
+   * This method can only be called once during runtime, then the repo
+   * locks any mass mutation. This method should be called as early as
+   * possible in the application.
+   *
+   * @param stocks to seed the repo with
    */
+  init(stocks: Stock[]): void {
+    if (!this.isLocked) {
+      stocks.forEach((stock) => {
+        this.stocks[stock.symbol] = stock;
+      });
+      this.isLocked = true;
+    } else {
+      this.logger.warn('Repository is already locked.', 'init');
+    }
+  }
+
+  /**
+   * Call {@link init} with pre-defined data
+   */
+  initWithSeed(): void {
+    if (!this.isLocked) {
+      this.init(this.seed);
+    } else {
+      this.logger.warn('Repository is already locked.', 'initWithSeed');
+    }
+  }
+
   create(options: CreateStock): Stock {
     const stock: Stock = {
       startPrice: options.price,
@@ -543,26 +573,22 @@ export class MarketRepository {
       ...options,
     };
 
-    this.stocks.push(stock);
-
+    this.stocks[stock.symbol] = stock;
     return stock;
   }
-  /**
-   * @returns {Stock[]} all stocks in the market repo
-   */
-  findAll(): Stock[] {
-    return this.stocks;
+
+  find(symbol: string): Stock | null {
+    return !!this.stocks[symbol] ? this.stocks[symbol] : null;
   }
 
-  /**
-   * Updates the given stock in this market, then returns it
-   *
-   * @param symbol to look up
-   * @param options new values
-   * @returns the updated stock
-   */
+  findAll(): Stock[] {
+    const all: Stock[] = [];
+    Object.keys(this.stocks).forEach((key) => all.push(this.stocks[key]));
+    return all;
+  }
+
   update(symbol: string, options: UpdateStock): Stock {
-    const toUpdate = this.stocks.filter((s) => symbol === s.symbol)[0];
+    const toUpdate = this.findAll().filter((s) => symbol === s.symbol)[0];
 
     const lastPrice = toUpdate.price;
     const updated = {
@@ -570,6 +596,8 @@ export class MarketRepository {
       ...options,
       lastPrice: lastPrice,
     };
+
+    this.stocks[symbol] = updated;
 
     return updated;
   }

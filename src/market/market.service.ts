@@ -10,8 +10,12 @@ export class MarketService {
   constructor(
     private repo: MarketRepository,
     private gateway: MarketGateway,
-    private clockService: ClockService,
+    private clock: ClockService,
   ) {}
+
+  find(symbol: string): Stock | null {
+    return this.repo.find(symbol);
+  }
 
   findAll(): Stock[] {
     return this.repo.findAll();
@@ -24,17 +28,18 @@ export class MarketService {
     this.repo.findAll().forEach((stock) => {
       const newPrice = this.calculateNewPrice(stock.price, stock.volatility);
 
-      const isNewDay: boolean = this.clockService.minutes === 0;
+      const isNewDay: boolean = this.clock.minutes === 0;
       let startPrice = stock.startPrice;
       if (isNewDay) {
         startPrice = stock.price;
       }
+
       const dayChangePercent = this.calculateDayChangePercent(stock);
 
       this.repo.update(stock.symbol, {
         price: newPrice,
-        days: this.clockService.days,
-        minutes: this.clockService.minutes,
+        days: this.clock.days,
+        minutes: this.clock.minutes,
         startPrice: startPrice,
         dayChangePercent: dayChangePercent,
       });
@@ -42,8 +47,8 @@ export class MarketService {
 
     this.gateway.emitMarket(
       this.repo.findAll(),
-      this.clockService.days,
-      this.clockService.minutes,
+      this.clock.days,
+      this.clock.minutes,
     );
   }
 
