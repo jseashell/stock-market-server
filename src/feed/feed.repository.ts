@@ -1,9 +1,9 @@
-import { FeedPost } from './feed-post.interface';
 import { Injectable } from '@nestjs/common';
+import { Post } from './feed-post.interface';
 
 @Injectable()
 export class FeedRepository {
-  feed: FeedPost[] = [
+  feed: Post[] = [
     {
       title: 'Amid the Capitol riot, Facebook faced its own insurrection',
       text: 'New internal documents provided by former Facebook employee-turned-whistleblower Frances Haugen provide a rare glimpse into how the company, after years under the microscope for the policing of its platform, appears to have simply stumbled into the Jan. 6 riot',
@@ -98,7 +98,7 @@ export class FeedRepository {
     return this.feed.length;
   }
 
-  get(i: number): FeedPost {
+  get(i: number): Post {
     return this.feed[i];
   }
 }

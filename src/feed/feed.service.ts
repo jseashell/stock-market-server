@@ -1,46 +1,50 @@
 import { ClockService } from '../clock/clock.service';
 import { FeedGateway } from './feed.gateway';
-import { FeedPost } from './feed-post.interface';
 import { FeedRepository } from './feed.repository';
 import { Injectable } from '@nestjs/common';
+import { Post } from './feed-post.interface';
+import { RandomService } from '../random/random.service';
 
 @Injectable()
 export class FeedService {
-  private tickCount = 0;
-  private rollover = this.newRandom(7, 12);
-  public currFeedPost: FeedPost = this.newFeedPost();
+  private tickCount: number;
+  private rollover: number;
+  private currPost: Post;
 
   constructor(
     private repo: FeedRepository,
     private gateway: FeedGateway,
-    private clockService: ClockService,
-  ) {}
+    private clock: ClockService,
+    private random: RandomService,
+  ) {
+    this.tickCount = 0;
+    this.rollover = this.random.newRandom(7, 12);
+    this.currPost = this.newFeedPost();
+  }
 
-  getCurrentFeedPost(): FeedPost {
-    return this.currFeedPost;
+  get currentPost(): Post {
+    return this.currPost;
   }
 
   tick(): void {
     if (this.tickCount === 0) {
-      this.gateway.emitNewFeedPost(this.currFeedPost);
+      this.gateway.emitUpdateFeed(this.currPost);
     }
 
     this.tickCount++;
     if (this.tickCount >= this.rollover) {
       this.tickCount = 0;
-      this.rollover = this.newRandom(7, 12);
-      this.currFeedPost = this.newFeedPost();
+      this.rollover = this.random.newRandom(7, 12);
+      this.currPost = this.newFeedPost();
     }
   }
 
-  private newRandom(min: number, max: number) {
-    return Math.floor(Math.random() * (max - min)) + min;
-  }
-
-  private newFeedPost(): FeedPost {
-    const feedPost = this.repo.get(this.newRandom(0, this.repo.count() - 1));
-    feedPost.day = this.clockService.days;
-    feedPost.time = this.clockService.time;
+  private newFeedPost(): Post {
+    const feedPost = this.repo.get(
+      this.random.newRandom(0, this.repo.count() - 1),
+    );
+    feedPost.day = this.clock.days;
+    feedPost.time = this.clock.time;
     return feedPost;
   }
 }

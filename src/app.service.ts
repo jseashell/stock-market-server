@@ -1,13 +1,13 @@
 import { ClockService } from './clock/clock.service';
-import { FeedPost } from './feed/feed-post.interface';
 import { FeedService } from './feed/feed.service';
 import { Injectable } from '@nestjs/common';
 import { MarketService } from './market/market.service';
+import { Post } from './feed/feed-post.interface';
 import { SchedulerRegistry } from '@nestjs/schedule';
 
 @Injectable()
 export class AppService {
-  private feedPosts: FeedPost[] = [];
+  private feedPosts: Post[] = [];
 
   constructor(
     private marketService: MarketService,
@@ -40,13 +40,13 @@ export class AppService {
 
     if (this.feedPosts.length > 0) {
       const lastFeedPost = this.feedPosts[this.feedPosts.length - 1];
-      const currFeedPost = this.feedService.getCurrentFeedPost();
+      const currFeedPost = this.feedService.currentPost;
       if (currFeedPost != lastFeedPost) {
-        this.feedPosts.push(this.feedService.getCurrentFeedPost());
+        this.feedPosts.push(this.feedService.currentPost);
       }
     } else {
       // first entry into the array
-      this.feedPosts.push(this.feedService.getCurrentFeedPost());
+      this.feedPosts.push(this.feedService.currentPost);
     }
   }
 

@@ -1,6 +1,6 @@
 import { Volatility } from '../volatility/volatility';
 
-export interface FeedPost {
+export interface Post {
   symbol?: string;
   title?: string;
   text?: string;

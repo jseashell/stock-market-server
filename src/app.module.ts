@@ -6,6 +6,7 @@ import { FeedModule } from './feed/feed.module';
 import { MarketModule } from './market/market.module';
 import { Module } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
+import { RandomService } from './random/random.service';
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { ScheduleModule } from '@nestjs/schedule';
     ClockModule,
     MarketModule,
   ],
-  providers: [AppService],
+  providers: [AppService, RandomService],
   controllers: [AppController],
 })
 export class AppModule {}
