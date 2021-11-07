@@ -7,7 +7,6 @@ import { MarketModule } from './market/market.module';
 import { Module } from '@nestjs/common';
 import { RandomService } from './random/random.service';
 import { ScheduleModule } from '@nestjs/schedule';
-import { RandomService } from './random/random.service';
 
 @Module({
   imports: [
